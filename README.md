@@ -1,6 +1,4 @@
-### Descripción en Español
-
-#### Description in English
+# User Management Microservice
 
 This project is a microservice built with **Spring Boot 2.5.14** and **Gradle 7.4** for user creation and retrieval. The
 microservice provides two main endpoints:
@@ -9,31 +7,30 @@ microservice provides two main endpoints:
    user information along with a JWT token.
 2. **/login**: Allows retrieving user data using a JWT token. The token is updated during each query.
 
-The microservice meets the following requirements:
+## Components diagram
 
-- Implements unit tests with a minimum coverage of 80%.
-- All inputs and outputs are in JSON format.
-- Handles exceptions and returns appropriate HTTP codes.
-- Leverages Java 8 or 11 features, such as lambdas and streams.
+## Sequence diagram
 
----
+## Running the application
 
-#### Using Java
+```sh
+git clone https://github.com/jdavidtorres/api-jwt.git
+cd api-jwt
+```
 
-1. Ensure **Java 8 or 11** and **Gradle** are installed on your system.
-2. Clone the project repository:
-   ```bash
-   git clone <REPOSITORY_URL>
-   cd <PROJECT_NAME>
-   ```
-3. Build the project:
-   ```bash
-   ./gradlew build
-   ```
-4. Run the application:
-   ```bash
-   java -jar build/libs/<JAR_NAME>.jar
-   ```
-5. Access the API at `http://localhost:8080`.
+#### Using Gradle command line
 
+```bash
+gradle bootRun
+```
+
+#### Using Docker
+
+```bash
+docker build -t api-jwt .
+docker run -p 8072:8072 api-jwt
+```
+
+You can check with the actuator endpoint if the application is running:
+[http://localhost:8072/actuator/health](http://localhost:8072/actuator/health)
 ---
