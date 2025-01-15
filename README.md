@@ -1,7 +1,6 @@
 # User Management Microservice
 
-This project is a microservice built with **Spring Boot 2.5.14** and **Gradle 7.4** for user creation and retrieval. The
-microservice provides two main endpoints:
+This project is a basic microservice for user management. It provides two main endpoints for user creation and retrieval.
 
 1. **/sign-up**: Enables user creation. It validates email and password formats, persists data in an H2 database, and returns
    user information along with a JWT token.
