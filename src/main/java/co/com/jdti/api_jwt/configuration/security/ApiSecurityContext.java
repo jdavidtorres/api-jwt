@@ -43,6 +43,8 @@ public class ApiSecurityContext extends WebSecurityConfigurerAdapter {
 			.and()
 			.authorizeRequests()
 			.antMatchers("/users/sign-up").permitAll()
+			.antMatchers("/actuator/health").permitAll()
+			.antMatchers("/swagger-ui/**", "/v3/api-docs/**", "/swagger-ui.html").permitAll()
 			.anyRequest().authenticated()
 			.and()
 			.addFilterBefore(tokenAuthenticationFilter, UsernamePasswordAuthenticationFilter.class);
