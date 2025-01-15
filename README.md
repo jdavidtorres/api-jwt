@@ -33,4 +33,10 @@ docker run -p 8072:8072 api-jwt
 
 You can check with the actuator endpoint if the application is running:
 [http://localhost:8072/actuator/health](http://localhost:8072/actuator/health)
+
+### OpenAPI documentation
+
+Swagger UI is available at [http://localhost:8072/swagger-ui.html](http://localhost:8072/swagger-ui.html)
+OpenAPI description is available at [http://localhost:8072/v3/api-docs](http://localhost:8072/v3/api-docs)
+
 ---
