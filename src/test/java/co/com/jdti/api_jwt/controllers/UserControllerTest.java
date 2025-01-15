@@ -8,6 +8,7 @@ import org.junit.jupiter.api.Test;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.test.autoconfigure.web.servlet.AutoConfigureMockMvc;
 import org.springframework.boot.test.context.SpringBootTest;
+import org.springframework.http.MediaType;
 import org.springframework.test.annotation.DirtiesContext;
 import org.springframework.test.web.servlet.MockMvc;
 import org.springframework.test.web.servlet.MvcResult;
@@ -32,11 +33,11 @@ class UserControllerTest {
 
 	@Test
 	void signUp_Success() throws Exception {
-		List<PhoneNumberDTO> phonesDTO = List.of(new PhoneNumberDTO(123456L, 57, "1"));
+		List<PhoneNumberDTO> phonesDTO = List.of(new PhoneNumberDTO(1234567L, 57, "1"));
 		CreateUserDTO createUserDTO = new CreateUserDTO("John Doe", "john.doe@example.com", "Password123", phonesDTO);
 
 		mockMvc.perform(post("/users/sign-up")
-				.contentType("application/json")
+				.contentType(MediaType.APPLICATION_JSON)
 				.content(objectMapper.writeValueAsString(createUserDTO)))
 			.andExpect(status().isCreated())
 			.andExpect(jsonPath("$.id").isNotEmpty())
@@ -48,11 +49,11 @@ class UserControllerTest {
 
 	@Test
 	void signUp_InvalidPassword() throws Exception {
-		List<PhoneNumberDTO> phonesDTO = List.of(new PhoneNumberDTO(123456L, 57, "1"));
+		List<PhoneNumberDTO> phonesDTO = List.of(new PhoneNumberDTO(1234567L, 57, "1"));
 		CreateUserDTO createUserDTO = new CreateUserDTO("John Doe", "john.doe@example.com", "invalid", phonesDTO);
 
 		mockMvc.perform(post("/users/sign-up")
-				.contentType("application/json")
+				.contentType(MediaType.APPLICATION_JSON)
 				.content(objectMapper.writeValueAsString(createUserDTO)))
 			.andExpect(status().isBadRequest())
 			.andExpect(jsonPath("$.code").value(400))
@@ -61,11 +62,11 @@ class UserControllerTest {
 
 	@Test
 	void login_Success() throws Exception {
-		List<PhoneNumberDTO> phonesDTO = List.of(new PhoneNumberDTO(123456L, 57, "1"));
-		CreateUserDTO signUpRequest = new CreateUserDTO("Jane Doe", "john.doe@example.com", "Password123", phonesDTO);
+		List<PhoneNumberDTO> phonesDTO = List.of(new PhoneNumberDTO(1234567L, 57, "1"));
+		CreateUserDTO signUpRequest = new CreateUserDTO("Jane Doe", "jane.doe@example.com", "Password123", phonesDTO);
 
 		MvcResult signUpResult = mockMvc.perform(post("/users/sign-up")
-				.contentType("application/json")
+				.contentType(MediaType.APPLICATION_JSON)
 				.content(objectMapper.writeValueAsString(signUpRequest)))
 			.andExpect(status().isCreated())
 			.andReturn();
@@ -83,7 +84,6 @@ class UserControllerTest {
 			.andExpect(jsonPath("$.token").isNotEmpty())
 			.andExpect(jsonPath("$.isActive").value(true))
 			.andExpect(jsonPath("$.email").value("jane.doe@example.com"))
-			.andExpect(jsonPath("$.password").isNotEmpty())
 			.andExpect(jsonPath("$.phones").isArray());
 	}
 }

@@ -9,6 +9,7 @@ import co.com.jdti.api_jwt.exceptions.UserException;
 import co.com.jdti.api_jwt.repositories.IUserRepository;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
+import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
 
 import java.util.List;
 import java.util.Optional;
@@ -33,11 +34,14 @@ class UserServiceTest {
 
 	private IUserService userService;
 
+	private BCryptPasswordEncoder bCryptPasswordEncoder;
+
 	@BeforeEach
 	public void setUp() {
 		userRepository = mock(IUserRepository.class);
 		tokenHelperService = mock(TokenHelperService.class);
-		userService = new UserServiceImpl(userRepository, tokenHelperService);
+		bCryptPasswordEncoder = new BCryptPasswordEncoder();
+		userService = new UserServiceImpl(userRepository, tokenHelperService, bCryptPasswordEncoder);
 	}
 
 	@Test

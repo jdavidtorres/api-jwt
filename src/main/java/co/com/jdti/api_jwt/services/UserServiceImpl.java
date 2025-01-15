@@ -10,6 +10,9 @@ import co.com.jdti.api_jwt.exceptions.UserException;
 import co.com.jdti.api_jwt.repositories.IUserRepository;
 import lombok.RequiredArgsConstructor;
 import org.springframework.http.HttpStatus;
+import org.springframework.security.core.userdetails.UserDetails;
+import org.springframework.security.core.userdetails.UsernameNotFoundException;
+import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
@@ -26,6 +29,7 @@ public class UserServiceImpl implements IUserService {
 
 	private final IUserRepository userRepository;
 	private final TokenHelperService tokenHelperService;
+	private final BCryptPasswordEncoder bCryptPasswordEncoder;
 
 	@Override
 	public CreatedUserResponseDTO signUp(CreateUserDTO createUser) {
@@ -49,7 +53,7 @@ public class UserServiceImpl implements IUserService {
 			.id(UUID.randomUUID().toString())
 			.name(createUser.getName())
 			.email(createUser.getEmail())
-			.password(createUser.getPassword())
+			.password(bCryptPasswordEncoder.encode(createUser.getPassword()))
 			.created(LocalDateTime.now())
 			.lastLogin(LocalDateTime.now())
 			.isActive(true)
@@ -94,5 +98,10 @@ public class UserServiceImpl implements IUserService {
 		if (!password.matches(regex)) {
 			throw new UserException("Password must have one uppercase letter, two digits and be between 8 and 12 characters", HttpStatus.BAD_REQUEST.value());
 		}
+	}
+
+	@Override
+	public UserDetails loadUserByUsername(String username) throws UsernameNotFoundException {
+		return userRepository.findByEmail(username).orElseThrow(() -> new UserException("User not found", HttpStatus.NOT_FOUND.value()));
 	}
 }
