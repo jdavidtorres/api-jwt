@@ -26,6 +26,7 @@ replay_pid*
 # IntelliJ
 .idea/
 out/
+.run/
 
 # Gradle
 .gradle/
