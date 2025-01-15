@@ -1,3 +1,5 @@
+[![Test and Build](https://github.com/jdavidtorres/api-jwt/actions/workflows/build.yml/badge.svg?branch=main)](https://github.com/jdavidtorres/api-jwt/actions/workflows/build.yml)
+
 # User Management Microservice
 
 This project is a basic microservice for user management. It provides two main endpoints for user creation and retrieval.
@@ -35,7 +37,7 @@ You can check with the actuator endpoint if the application is running:
 
 ### OpenAPI documentation
 
-Swagger UI is available at [http://localhost:8072/swagger-ui.html](http://localhost:8072/swagger-ui.html)
-OpenAPI description is available at [http://localhost:8072/v3/api-docs](http://localhost:8072/v3/api-docs)
+- Swagger UI is available at [http://localhost:8072/swagger-ui.html](http://localhost:8072/swagger-ui.html)
+- OpenAPI description is available at [http://localhost:8072/v3/api-docs](http://localhost:8072/v3/api-docs)
 
 ---
